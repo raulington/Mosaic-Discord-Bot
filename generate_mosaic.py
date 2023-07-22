@@ -34,5 +34,5 @@ def generator(tileSize, tilesAcross, theme, file):
     mosaic.save(bytes_io, format="JPEG")
     image_bytes = bytes_io.getvalue()
     bytes_io.close()
-    
+    print('Finished Mosaic')
     return image_bytes

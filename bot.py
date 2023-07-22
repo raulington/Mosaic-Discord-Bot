@@ -25,8 +25,11 @@ async def create_img(ctx, renderedTileSize: int, tilesAcross: int, theme: str):
     image_bytes = requests.get(image_url).content
 
     output_image_bytes = generator(renderedTileSize, tilesAcross, theme, io.BytesIO(image_bytes))
-    new_img = discord.File(io.BytesIO(output_image_bytes), 'new_image.png')
-    print('Finished Mosaic')
-    await ctx.send(file=new_img)
+
+    if len(output_image_bytes) > 8*1024*1024:  # Change to 50*1024*1024 for Nitro limits
+        await ctx.send('The resulting image is too large to send through Discord.')
+    else:
+        new_img = discord.File(io.BytesIO(output_image_bytes), 'new_image.png')
+        await ctx.send(file=new_img)
 
 bot.run(TOKEN)
