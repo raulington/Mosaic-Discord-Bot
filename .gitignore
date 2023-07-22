@@ -1,0 +1,7 @@
+temp-*
+.env
+.DS_Store
+.vscode
+__pycache__
+imgs/
+private.py
