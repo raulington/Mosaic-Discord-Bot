@@ -1,5 +1,4 @@
 from mosaic import KDTree, generate
-from flask import Flask, request, make_response
 from io import BytesIO
 import threading
 

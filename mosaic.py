@@ -7,7 +7,7 @@ def KDTree(path):
     squares = []
     colors = []
     for file in os.listdir(path):
-        if len(squares) == 80:
+        if len(squares) == 200:
             break
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
             square = Image.open(path + '/' + file)
