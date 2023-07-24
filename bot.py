@@ -27,8 +27,8 @@ def compress_image(image_bytes, max_size):
     return image_bytes
 
 async def delayed_message(ctx):
-    await sleep(20)
-    await ctx.send("Compressing the image is taking longer than usual. Please wait...")
+    await sleep(40)
+    await ctx.send("Still compressing the image until the image size is below Discord's file sharing limits. Please wait...")
 
 @bot.command(name='create_img')
 async def create_img(ctx, renderedTileSize: int, tilesAcross: int, theme: str):
@@ -54,6 +54,9 @@ async def create_img(ctx, renderedTileSize: int, tilesAcross: int, theme: str):
         if img.size[0] * img.size[1] > 178956970:  # If total pixels exceeds limit
             await ctx.send("The resulting mosaic is too large to process.")
             return
+        
+        if len(output_image_bytes) > 8*1024*1024:
+            await ctx.send("The resulting mosaic is too large and will need to be compressed due to Discord's file sharing limits. This will reduce the image quality. Please wait.")
         
         # Start delayed_message task
         delayed_message_task = ensure_future(delayed_message(ctx))
